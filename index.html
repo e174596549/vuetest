@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>vue test</title>
+        <script type="text/javascript" src='vue.js'></script>
+        <script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/lodash@4.13.1/lodash.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            {{ message }}
+        </div>
+
+        <div id="app-2">
+            <span v-bind:title="message">
+                鼠标悬停几秒钟查看此处动态绑定的提示信息！
+            </span>
+        </div>
+
+        <div id="app-3">
+            <p v-if="seen">现在你看到我了</p>
+        </div>
+
+        <div id="app-4">
+            <ol>
+                <li v-for="todo in todos">
+                    {{ todo.text }}
+                </li>
+            </ol>
+        </div>
+
+        <div id="app-5">
+            <p>{{ message }}</p>
+            <button v-on:click="reverseMessage">逆转消息</button>
+        </div>
+
+        <div id="app-6">
+            <p>{{ message }}</p>
+            <input v-model="message">
+        </div>
+
+        <div id="app-7">
+            <ol>
+                <!-- 现在我们为每个todo-item提供待办项对象    -->
+                <!-- 待办项对象是变量，即其内容可以是动态的 -->
+                <todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
+            </ol>
+        </div>
+
+        <span id='app8' v-once>Message:
+            {{ msg }}</span>
+
+        <br>
+        <a id='app9' v-bind:href="url" v-on:click="doSomething">一个超链接</a>
+
+        <div id="example">
+            <p>Original message: "{{ message }}"</p>
+            <p>Computed reversed message: "{{ reversedMessage }}"</p>
+        </div>
+
+        <div id="demo">{{ fullName }}</div>
+
+        <div id="watch-example">
+            <p>
+                Ask a yes/no question:
+                <input v-model="question">
+            </p>
+            <p>{{ answer }}</p>
+        </div>
+
+        <!-- <ul id="example-1">
+            <li v-for="item in items">
+                {{ item.message }}
+            </li>
+        </ul> -->
+
+        <ul id="example-2">
+            <li v-for="(item, index) in items">
+                {{ parentMessage }}
+                -
+                {{ index }}
+                -
+                {{ item.message }}
+            </li>
+        </ul>
+
+        <ul id="repeat-object" class="demo">
+            <li v-for="(value, key, index) in object">
+                {{ index }}.
+                {{ key }}
+                :
+                {{ value }}
+            </li>
+        </ul>
+
+        <div id="todo-list-example">
+            <input v-model="newTodoText" v-on:keyup.enter="addNewTodo" placeholder="Add a todo">
+            <ul>
+                <li is="todo-item" v-for=" (todo, index) in todos" v-bind:title=" todo" v-on:remove=" todos.splice(index, 1)"></li>
+            </ul>
+        </div>
+
+        <div id="example-1">
+            <button v-on:click="counter += 1">增加 1</button>
+            <p>这个按钮被点击了
+                {{ counter }}
+                次。</p>
+        </div>
+
+        <div id="example-12">
+            <!-- `greet` 是在下面定义的方法名 -->
+            <button v-on:click="greet">Greet</button>
+        </div>
+
+        <div id="example-13">
+            <button v-on:click="say('hi')">Say hi</button>
+            <button v-on:click="say('what')">Say what</button>
+        </div>
+
+        <div id="example-14">
+            <input v-model="message" placeholder="edit me">
+            <p>Message is:
+                {{ message }}</p>
+        </div>
+
+        <div id="example-15">
+            <input type="checkbox" id="checkbox" v-model="checked">
+            <label for="checkbox">{{ checked }}</label>
+        </div>
+
+        <div id="example-24" class="demo">
+            <input type="radio" id="one" value="One" v-model="picked">
+            <label for="one">One</label>
+            <br>
+            <input type="radio" id="two" value="Two" v-model="picked">
+            <label for="two">Two</label>
+            <br>
+            <span>Picked:
+                {{ picked }}</span>
+        </div>
+
+        <div id="example-25" class="demo">
+            <select v-model="selecte">
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+            </select>
+            <span>Selected:
+                {{ selected }}</span>
+
+        </div>
+
+        <div id="example-26" class="demo">
+            <select v-model="selected" multiple style="width: 50px">
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+            </select>
+            <br>
+            <span>Selected:
+                {{ selected }}</span>
+        </div>
+        <div id="example-17">
+            <select v-model="selected">
+                <option v-for="option in options" v-bind:value="option.value">
+                    {{ option.text }}
+                </option>
+            </select>
+            <span>Selected:
+                {{ selected }}</span>
+        </div>
+
+        <script type="text/javascript">
+
+            new Vue({
+                el: '#example-17',
+                data: {
+                    selected: 'A',
+                    options: [
+                        {
+                            text: 'One',
+                            value: 'A'
+                        }, {
+                            text: 'Two',
+                            value: 'B'
+                        }, {
+                            text: 'Three',
+                            value: 'C'
+                        }
+                    ]
+                }
+            })
+
+            new Vue({
+                el: '#example-26',
+                data: {
+                    selected: this.value
+                }
+            })
+
+            new Vue({
+                el: '#example-25',
+                data: {
+                    selected: null
+                }
+            })
+
+            new Vue({
+                el: '#example-24',
+                data: {
+                    picked: ''
+                }
+            })
+
+            new Vue({
+                el: '#example-15',
+                data: {
+                    checked: ''
+                }
+            })
+
+            new Vue({
+                el: '#example-14',
+                data: {
+                    message: this.value
+                }
+            })
+
+            new Vue({
+                el: '#example-13',
+                methods: {
+                    say: function (message) {
+                        alert(message)
+                    }
+                }
+            })
+
+            var example2 = new Vue({
+                el: '#example-12',
+                data: {
+                    name: 'Vue.js'
+                },
+                // 在 `methods` 对象中定义方法
+                methods: {
+                    greet: function (event) {
+                        // `this` 在方法里指当前 Vue 实例
+                        alert('Hello ' + this.name + '!')
+                        // `event` 是原生 DOM 事件
+                        alert(event.target.tagName)
+                    }
+                }
+            })
+
+            var example1 = new Vue({
+                el: '#example-1',
+                data: {
+                    counter: 0
+                }
+            })
+
+            Vue.component('todo-item', {
+                template: '\
+            <li>\
+              {{ title }}\
+              <button v-on:click="$emit(\'remove\')">X</button>\
+            </li>\
+          ',
+                props: ['title']
+            })
+            new Vue({
+                el: '#todo-list-example',
+                data: {
+                    newTodoText: '',
+                    todos: ['Do the dishes', 'Take out the trash', 'Mow the lawn']
+                },
+                methods: {
+                    addNewTodo: function () {
+                        this.todos.push(this.newTodoText)
+                        this.newTodoText = ''
+                    }
+                }
+            })
+
+            // new Vue({     el: '#repeat-object',     data: {         object: {             FirstName: 'John',             LastName: 'Doe',             Age: 30         }     } })
+
+            var example2 = new Vue({
+                el: '#example-2',
+                data: {
+                    parentMessage: 'Parent',
+                    items: [
+                        {
+                            message: 'Foo'
+                        }, {
+                            message: 'Bar'
+                        }
+                    ]
+                }
+            })
+
+            // var example1 = new Vue({     el: '#example-1',     data: {         items: [             {                 message: 'Foo'             }, {                 message: 'Bar'             }         ]     } })
+
+            var watchExampleVM = new Vue({
+                el: '#watch-example',
+                data: {
+                    question: '',
+                    answer: 'I cannot give you an answer until you ask a question!'
+                },
+                watch: {
+                    // 如果 question 发生改变，这个函数就会运行
+                    question: function (newQuestion) {
+                        this.answer = 'Waiting for you to stop typing...'
+                        this.getAnswer()
+                    }
+                },
+                methods: {
+                    // _.debounce 是一个通过 lodash 限制操作频率的函数。 在这个例子中，我们希望限制访问yesno.wtf/api的频率 ajax请求直到用户输入完毕才会发出 学习更多关于 _.debounce function (and its cousin _.throttle), 参考: https://lodash.com/docs#debounce
+                    getAnswer: _.debounce(function () {
+                        var vm = this
+                        if (this.question.indexOf('?') === -1) {
+                            vm.answer = 'Questions usually contain a question mark. ;-)'
+                            return
+                        }
+                        vm.answer = 'Thinking...'
+                        axios.get('https://yesno.wtf/api').then(function (response) {
+                            vm.answer = _.capitalize(response.data.answer)
+                        }).catch(function (error) {
+                            vm.answer = 'Error! Could not reach the API. ' + error
+                        })
+                    },
+                    // 这是我们为用户停止输入等待的毫秒数
+                    500)
+                }
+            })
+
+            var vm = new Vue({
+                el: '#demo',
+                data: {
+                    firstName: 'Foo',
+                    lastName: 'Bar'
+                },
+                computed: {
+                    fullName: {
+                        // getter
+                        get: function () {
+                            return this.firstName + ' ' + this.lastName
+                        },
+                        // setter
+                        set: function (newValue) {
+                            var names = newValue.split(' ')
+                            this.firstName = names[0]
+                            this.lastName = names[names.length - 1]
+                        }
+                    }
+                }
+            })
+
+            // var vm = new Vue({     el: '#demo',     data: {         firstName: 'Foo',         lastName: 'Bar',         fullName: 'Foo Bar'     },     watch: {         firstName: function (val) {             this.fullName = val + ' ' + this.lastName         },
+            //         lastName: function (val) {             this.fullName = this.firstName + ' ' + val         }     } }) var vm = new Vue({     el: '#example',     data: {         message: 'Hello'     },     computed: {         // a computed getter
+            // reversedMessage: function () {             // `this` points to the vm instance             return this.message.split('').reverse().join('')         }     } })
+
+            var app9 = new Vue({
+                el: '#app9',
+                data: {
+                    url: 'http://taoer.info/',
+                    doSomething: function () {
+                        console.log('is clicked');
+                    }
+                }
+            })
+
+            var app8 = new Vue({
+                el: '#app8',
+                data: {
+                    msg: 'testapp8'
+                }
+            })
+
+            // Vue.component('todo-item', {     props: ['todo'],     template: '<li>{{ todo.text }}</li>' })
+
+            var app7 = new Vue({
+                el: '#app-7',
+                data: {
+                    groceryList: [
+                        {
+                            text: '蔬菜'
+                        }, {
+                            text: '奶酪'
+                        }, {
+                            text: '随便其他什么人吃的东西'
+                        }
+                    ]
+                }
+            })
+
+            var app6 = new Vue({
+                el: '#app-6',
+                data: {
+                    message: 'Hello Vue!'
+                }
+            })
+
+            var app5 = new Vue({
+                el: '#app-5',
+                data: {
+                    message: 'Hello Vue.js!'
+                },
+                methods: {
+                    reverseMessage: function () {
+                        this.message = this.message.split('').reverse().join('')
+                    }
+                }
+            })
+
+            var app4 = new Vue({
+                el: '#app-4',
+                data: {
+                    todos: [
+                        {
+                            text: '学习 JavaScript'
+                        }, {
+                            text: '学习 Vue'
+                        }, {
+                            text: '整个牛项目'
+                        }
+                    ]
+                }
+            })
+
+            var app3 = new Vue({
+                el: '#app-3',
+                data: {
+                    seen: true
+                }
+            })
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    message: 'Hello Vue!'
+                }
+            })
+
+            var app2 = new Vue({
+                el: '#app-2',
+                data: {
+                    message: '页面加载于 ' + new Date()
+                }
+            })
+        </script>
+    </body>
+</html>

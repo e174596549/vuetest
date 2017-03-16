@@ -1,0 +1,25 @@
+{
+  "name": "leo",
+  "version": "1.0.0",
+  "description": "vuetest",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/e174596549/vuetest.git"
+  },
+  "keywords": [
+    "vue"
+  ],
+  "author": "leo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/e174596549/vuetest/issues"
+  },
+  "homepage": "https://github.com/e174596549/vuetest#readme",
+  "dependencies": {
+    "vue": "^2.2.2"
+  }
+}
