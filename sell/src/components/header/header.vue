@@ -7,7 +7,7 @@
 <script>
 export default {
   name: 'mheader',
-  data () {
+  data() {
     return {
       msg: '这是header'
     }

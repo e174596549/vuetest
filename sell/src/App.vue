@@ -11,6 +11,22 @@ export default {
   name: 'app',
   components: {
     mheader
+  },
+  data() {
+    return {
+      seller: {}
+    }
+  },
+  created() {
+    this.$http.get('/api/seller').then(
+      (response) => {
+        response = response.body
+        if (response.errno === 0) {
+          this.seller = Object.assign({}, this.seller, response.data)
+          console.log(this.seller)
+        }
+      }
+    )
   }
 }
 </script>
