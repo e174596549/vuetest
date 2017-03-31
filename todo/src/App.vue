@@ -2,6 +2,7 @@
 <div id="app">
   <todo></todo>
   <city></city>
+
 </div>
 </template>
 
@@ -13,7 +14,7 @@ export default {
   name: 'app',
   components: {
     todo,
-    city
+    city,
   }
 }
 </script>
